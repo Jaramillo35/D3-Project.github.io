@@ -66,21 +66,15 @@ d3.csv("assets/data/data.csv").then(function (data) {
         .attr("stroke-width", "1")
         .attr("stroke", "black");
 
-    let text = chartGroup.selectAll("text")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("cx", d => xLinearScale(d.poverty))
-        .attr("cy", d => xLinearScale(d.poverty))
-        .text(d => d.abbr)
-        .attr("style", "color: cornsilk;");
 
-    chartGroup.append("g")
+
+    data.forEach(function (d) {
+        chartGroup.append("g")
         .append("text")
-        .attr("y", 1)
-        .attr("dy", "1em")
-        .attr("transform", "rotate(-90) translate(-250,-50)")
-        .text("Lacks Healthcare (%)");
+        .text(d.abbr)
+        .attr("transform", `translate(${xLinearScale(d.poverty)-7},${yLinearScale(d.healthcare)+3})`)
+        .attr("style","color: cornsilk; font-size: 9px ")
+    })
 
     chartGroup.append("g")
         .append("text")
